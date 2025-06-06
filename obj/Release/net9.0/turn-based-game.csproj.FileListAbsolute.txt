@@ -1,0 +1,15 @@
+C:\Users\cfowl\pokemon-ascii\bin\Release\net9.0\turn-based-game.exe
+C:\Users\cfowl\pokemon-ascii\bin\Release\net9.0\turn-based-game.deps.json
+C:\Users\cfowl\pokemon-ascii\bin\Release\net9.0\turn-based-game.runtimeconfig.json
+C:\Users\cfowl\pokemon-ascii\bin\Release\net9.0\turn-based-game.dll
+C:\Users\cfowl\pokemon-ascii\bin\Release\net9.0\turn-based-game.pdb
+C:\Users\cfowl\pokemon-ascii\obj\Release\net9.0\turn-based-game.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\cfowl\pokemon-ascii\obj\Release\net9.0\turn-based-game.AssemblyInfoInputs.cache
+C:\Users\cfowl\pokemon-ascii\obj\Release\net9.0\turn-based-game.AssemblyInfo.cs
+C:\Users\cfowl\pokemon-ascii\obj\Release\net9.0\turn-based-game.csproj.CoreCompileInputs.cache
+C:\Users\cfowl\pokemon-ascii\obj\Release\net9.0\turn-based-game.sourcelink.json
+C:\Users\cfowl\pokemon-ascii\obj\Release\net9.0\turn-based-game.dll
+C:\Users\cfowl\pokemon-ascii\obj\Release\net9.0\refint\turn-based-game.dll
+C:\Users\cfowl\pokemon-ascii\obj\Release\net9.0\turn-based-game.pdb
+C:\Users\cfowl\pokemon-ascii\obj\Release\net9.0\turn-based-game.genruntimeconfig.cache
+C:\Users\cfowl\pokemon-ascii\obj\Release\net9.0\ref\turn-based-game.dll

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace turn_based_game;
+﻿namespace turn_based_game;
 
 public class Battle
 {
@@ -24,7 +17,6 @@ public class Battle
         bool enemyIsAlive = true;
         int round = 0;
 
-        Console.WriteLine(user.Attacks[2]);
         while (!gameIsOver && enemyIsAlive)
         {
             round++;
@@ -96,7 +88,7 @@ public class Battle
     private void enemyDefeated()
     {
         return;
-    }        //get 
+    }
 
     //fix this later
     private void gameOver()
@@ -104,7 +96,7 @@ public class Battle
         return;
     }
 
-    public static void Battle_Sequence(Character attacker, Character defender, string attackChoice)
+    public void Battle_Sequence(Character attacker, Character defender, string attackChoice)
     {
         int damage = CalculateDamage(attacker.Pokemon.Trim(), attackChoice.Trim());
 
@@ -118,24 +110,25 @@ public class Battle
         }
     }
 
-    public static int CalculateDamage(string weapon, string attackChoice)
+    public int CalculateDamage(string weapon, string attackChoice)
     {
         var lines = File.ReadAllLines("weapons.csv");
         foreach (var line in lines)
         {
             var parts = line.Split(',');
-            if (parts[0].Trim().Equals(weapon, StringComparison.OrdinalIgnoreCase))
+
+            if (!parts[0].Trim().Equals(weapon, StringComparison.OrdinalIgnoreCase))
+                continue;
+
+            for (int i = 1; i < parts.Length - 1; i += 2)
             {
-                for (int i = 1; i < parts.Length - 1; i += 2)
-                {
-                    if (parts[i].Trim().Equals(attackChoice, StringComparison.OrdinalIgnoreCase))
-                    {
-                        if (int.TryParse(parts[i + 1].Trim(), out int dmg))
-                            return dmg;
-                    }
-                }
+                if (!parts[i].Trim().Equals(attackChoice, StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                return int.TryParse(parts[i + 1].Trim(), out int dmg) ? dmg : 0;
             }
         }
+
         return 0;
     }
 }
