@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace turn_based_game;
+﻿namespace turn_based_game;
 
 public class Character
 {
@@ -12,7 +6,7 @@ public class Character
     public int HP { get; set; }
     public int MaxHP { get; set; }
     public string Pokemon { get; set; }
-    public List<string> Attacks { get; set; } = new List<string>();
+    public List<string> Attacks { get; set; } = [];
     public Character(string name, int hP, int maxHP, string pokemon)
     {
         Name = name;
@@ -38,7 +32,6 @@ public class Character
                     }
                     if (columns.Length > 7 && !string.IsNullOrWhiteSpace(columns[7]))
                         attacks.Add(columns[7].Trim());
-
                     else
                     {
                         attacks.Add("not an attack");
