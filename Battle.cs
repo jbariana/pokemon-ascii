@@ -106,7 +106,7 @@ public class Battle
 
     public static void Battle_Sequence(Character attacker, Character defender, string attackChoice)
     {
-        int damage = CalculateDamage(attacker.Weapon.Trim(), attackChoice.Trim());
+        int damage = CalculateDamage(attacker.Pokemon.Trim(), attackChoice.Trim());
 
         defender.HP -= damage;
 

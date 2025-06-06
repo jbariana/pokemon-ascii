@@ -12,3 +12,4 @@ C:\Users\jbari\source\repos\turn-based-game\turn-based-game\obj\Debug\net9.0\ref
 C:\Users\jbari\source\repos\turn-based-game\turn-based-game\obj\Debug\net9.0\turn-based-game.pdb
 C:\Users\jbari\source\repos\turn-based-game\turn-based-game\obj\Debug\net9.0\turn-based-game.genruntimeconfig.cache
 C:\Users\jbari\source\repos\turn-based-game\turn-based-game\obj\Debug\net9.0\ref\turn-based-game.dll
+C:\Users\jbari\source\repos\turn-based-game\turn-based-game\obj\Debug\net9.0\turn-based-game.sourcelink.json

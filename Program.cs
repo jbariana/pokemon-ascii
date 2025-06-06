@@ -1,4 +1,4 @@
-﻿namespace turn_based_game;
+namespace turn_based_game;
 
 internal class Program
 {

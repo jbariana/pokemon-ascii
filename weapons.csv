@@ -1,4 +1,3 @@
-﻿Melee, punch, 4, kick, 5, headbutt, 2
-Sword, slash, 23, stab, 19, swing, 3
-Axe, chop, 30, cleave, 25
-Spear, thrust, 20, jab, 15
+﻿Name, Type, HP, Ability, Attack1, Attack1Damage, Attack1EC, Attack2, Attack2Damage, Attack2EC
+Darkrai, Dark, 140, Nightmare Aura, Dark Prism, 80, 3, null, null, null
+Giratina, Psychic, 150, Broken-Space Bellow, Chaotic Impact, 130, 4, null, null, null
