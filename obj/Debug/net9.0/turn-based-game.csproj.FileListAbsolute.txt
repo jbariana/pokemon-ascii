@@ -1,0 +1,14 @@
+C:\Users\jbari\source\repos\turn-based-game\turn-based-game\bin\Debug\net9.0\turn-based-game.exe
+C:\Users\jbari\source\repos\turn-based-game\turn-based-game\bin\Debug\net9.0\turn-based-game.deps.json
+C:\Users\jbari\source\repos\turn-based-game\turn-based-game\bin\Debug\net9.0\turn-based-game.runtimeconfig.json
+C:\Users\jbari\source\repos\turn-based-game\turn-based-game\bin\Debug\net9.0\turn-based-game.dll
+C:\Users\jbari\source\repos\turn-based-game\turn-based-game\bin\Debug\net9.0\turn-based-game.pdb
+C:\Users\jbari\source\repos\turn-based-game\turn-based-game\obj\Debug\net9.0\turn-based-game.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jbari\source\repos\turn-based-game\turn-based-game\obj\Debug\net9.0\turn-based-game.AssemblyInfoInputs.cache
+C:\Users\jbari\source\repos\turn-based-game\turn-based-game\obj\Debug\net9.0\turn-based-game.AssemblyInfo.cs
+C:\Users\jbari\source\repos\turn-based-game\turn-based-game\obj\Debug\net9.0\turn-based-game.csproj.CoreCompileInputs.cache
+C:\Users\jbari\source\repos\turn-based-game\turn-based-game\obj\Debug\net9.0\turn-based-game.dll
+C:\Users\jbari\source\repos\turn-based-game\turn-based-game\obj\Debug\net9.0\refint\turn-based-game.dll
+C:\Users\jbari\source\repos\turn-based-game\turn-based-game\obj\Debug\net9.0\turn-based-game.pdb
+C:\Users\jbari\source\repos\turn-based-game\turn-based-game\obj\Debug\net9.0\turn-based-game.genruntimeconfig.cache
+C:\Users\jbari\source\repos\turn-based-game\turn-based-game\obj\Debug\net9.0\ref\turn-based-game.dll
