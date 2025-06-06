@@ -38,6 +38,11 @@ public class Character
                     }
                     if (columns.Length > 7 && !string.IsNullOrWhiteSpace(columns[7]))
                         attacks.Add(columns[7].Trim());
+
+                    else
+                    {
+                        attacks.Add("not an attack");
+                    }
                     break;
                 }
             }

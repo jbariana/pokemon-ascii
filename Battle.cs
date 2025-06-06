@@ -24,7 +24,6 @@ public class Battle
         bool enemyIsAlive = true;
         int round = 0;
 
-        Console.WriteLine(user.Attacks[2]);
         while (!gameIsOver && enemyIsAlive)
         {
             round++;
