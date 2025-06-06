@@ -12,14 +12,15 @@ public class Game
     public void Game_Loop()
     {
         //character creator
-        string weapon = "Sword";
-        Character user = new Character("Combo", 45, 60, weapon);
+        string pokemon = "Darkrai";
+        Character user = new Character("Combo", 45, 60, pokemon);
 
         //intro
         Dialogue.introScreen();
 
         //game loop
-        Character enemy = new Character("DJ EVIL", 33, 33, weapon);
+        string pokemon2 = "Giratina";
+        Character enemy = new Character("DJ EVIL", 33, 33, pokemon2);
         Battle battle = new Battle(user, enemy);
         battle.StartBattle();
     }

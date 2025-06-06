@@ -10,8 +10,9 @@ public static class Dialogue
 {
     public static void introScreen()
     {
+
         Console.Clear();
-        Console.WriteLine("Welcome to the turn-based game!");
+        Console.WriteLine("Welcome to the pokemon-ascii!");
         Console.WriteLine("Prepare for battle!");
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
@@ -56,10 +57,10 @@ public static class Dialogue
 
     public static void Battle_Dialogue(Character attacker, Character defender, string attackName, int damage)
     {
-        Console.WriteLine($"{attacker.Name} is preparing to use {attackName}!");
+        Console.WriteLine($"{attacker.Name}: {attacker.Pokemon}, use {attackName}!");
         Thread.Sleep(1500);
 
-        Console.WriteLine($"{attacker.Name} uses {attackName}! It deals {damage} damage!");
+        Console.WriteLine($"{attacker.Pokemon} uses {attackName}! It deals {damage} damage!");
         Thread.Sleep(2000);
     }
 }
