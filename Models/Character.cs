@@ -1,10 +1,11 @@
-﻿namespace turn_based_game;
+﻿namespace turn_based_game.Models;
 
 public class Character
 {
-    public string Name { get; set; }
+    // removed setters to make it immutable after construction (data safety)
+    public string Name { get; }
     public Pokemon Pokemon { get; set; }
-    public bool AttackingFirst { get; set; }
+    public bool AttackingFirst { get; }
     public Character(string name, string pokemon, bool isAttackingFirst)
     {
         Name = name;
