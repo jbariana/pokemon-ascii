@@ -113,22 +113,28 @@ public class Battle
     public int CalculateDamage(string weapon, string attackChoice)
     {
         var lines = File.ReadAllLines("weapons.csv");
-        foreach (var line in lines)
+
+        foreach (var line in lines.Skip(1)) // Skip header
         {
             var parts = line.Split(',');
 
-            if (!parts[0].Trim().Equals(weapon, StringComparison.OrdinalIgnoreCase))
-                continue;
-
-            for (int i = 1; i < parts.Length - 1; i += 2)
+            // Check if weapon name matches
+            if (parts[0].Trim().Equals(weapon, StringComparison.OrdinalIgnoreCase))
             {
-                if (!parts[i].Trim().Equals(attackChoice, StringComparison.OrdinalIgnoreCase))
-                    continue;
-
-                return int.TryParse(parts[i + 1].Trim(), out int dmg) ? dmg : 0;
+                // Search for attack name in odd columns (Attack1, Attack2, ...)
+                for (int i = 4; i < parts.Length; i += 3)
+                {
+                    string attackName = parts[i].Trim();
+                    if (!string.IsNullOrEmpty(attackName) &&
+                        attackName.Equals(attackChoice, StringComparison.OrdinalIgnoreCase))
+                    {
+                        // Damage is the next column
+                        if (i + 1 < parts.Length && int.TryParse(parts[i + 1].Trim(), out int dmg))
+                            return dmg;
+                    }
+                }
             }
         }
-
-        return 0;
+        return 0; // Not found
     }
 }
