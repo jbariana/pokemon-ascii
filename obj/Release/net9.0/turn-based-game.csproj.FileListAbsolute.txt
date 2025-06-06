@@ -13,3 +13,4 @@ C:\Users\cfowl\pokemon-ascii\obj\Release\net9.0\refint\turn-based-game.dll
 C:\Users\cfowl\pokemon-ascii\obj\Release\net9.0\turn-based-game.pdb
 C:\Users\cfowl\pokemon-ascii\obj\Release\net9.0\turn-based-game.genruntimeconfig.cache
 C:\Users\cfowl\pokemon-ascii\obj\Release\net9.0\ref\turn-based-game.dll
+C:\Users\cfowl\pokemon-ascii\bin\Release\net9.0\weapons.csv

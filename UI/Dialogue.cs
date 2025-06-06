@@ -1,16 +1,16 @@
-namespace turn_based_game;
+/*
+ * fixed some things to work with the new attack class
+ */
+
+namespace turn_based_game.UI;
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using turn_based_game.Models;
 
 public static class Dialogue
 {
-    public static void introScreen()
+    public static void IntroScreen()
     {
-
         Console.Clear();
         Console.WriteLine("Welcome to the pokemon-ascii!");
         Console.WriteLine("Prepare for battle!");
@@ -19,21 +19,21 @@ public static class Dialogue
         Console.Clear();
     }
 
-
     public static string BattleMenu(Character user, Character enemy, int round)
     {
-        display(user, enemy, round);
+        Display(user, enemy, round);
         Console.WriteLine("1. Attack");
         Console.WriteLine("2. Attach Energy");
         Console.WriteLine("3. Inventory (WIP)");
         Console.WriteLine("4. End Turn");
 
-        Console.WriteLine("Enter your choice (1-4): ");
+        Console.Write("Enter your choice (1-4): ");
         int choice;
         while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 4)
         {
             Console.WriteLine("Invalid input. Please enter a number: 1 - 4");
         }
+
         return BattleMenuHandler(user, enemy, round, choice);
     }
 
@@ -57,51 +57,50 @@ public static class Dialogue
         }
     }
 
-    //change when can use multiple pokemon
     public static void AttachEnergy(Character user)
     {
-
         Console.WriteLine($"{user.Name} has attached energy to {user.Pokemon.Name}!");
         Thread.Sleep(1500);
     }
+
     public static string DisplayAttackChoices(Character user, Character enemy, int round)
     {
-        display(user, enemy, round);
+        Display(user, enemy, round);
         var attacks = user.Pokemon.Attacks;
-        int numAttacks = attacks.Count / 3;
-        for (int i = 0; i < numAttacks; i++)
-        {
-            Console.WriteLine($"{i + 1}. {attacks[i * 3]}");
-        }
-        Console.WriteLine($"{numAttacks + 1}. Back");
 
-        int userChoiceIndex = 1;
+        for (int i = 0; i < attacks.Count; i++)
+        {
+            var atk = attacks[i];
+            Console.WriteLine($"{i + 1}. {atk.Name} (Dmg: {atk.Damage}, Cost: {atk.Cost})");
+        }
+
+        Console.WriteLine($"{attacks.Count + 1}. Back");
 
         Console.WriteLine("Please choose your attack: ");
         while (true)
         {
             var input = Console.ReadLine();
-            if (int.TryParse(input, out userChoiceIndex) &&
-                userChoiceIndex >= 1 && userChoiceIndex <= numAttacks + 1)
+
+            if (int.TryParse(input, out int userChoiceIndex) &&
+                userChoiceIndex >= 1 && userChoiceIndex <= attacks.Count + 1)
             {
-                break;
+                if (userChoiceIndex == attacks.Count + 1)
+                {
+                    return BattleMenu(user, enemy, round);
+                }
+
+                return attacks[userChoiceIndex - 1].Name;
             }
-            Console.WriteLine($"Invalid input. Please enter a number between 1 and {numAttacks + 1}:");
-        }
 
-        if (userChoiceIndex == numAttacks + 1)
-        {
-            return BattleMenu(user, enemy, round);
+            Console.WriteLine($"Invalid input. Please enter a number between 1 and {attacks.Count + 1}:");
         }
-
-        return attacks[(userChoiceIndex - 1) * 3];
     }
 
-    public static void display(Character user, Character enemy, int round)
+    public static void Display(Character user, Character enemy, int round)
     {
         Console.Clear();
-        string border = new string('=', 48);
-        string innerBorder = new string('-', 46);
+        string border = new('=', 48);
+        string innerBorder = new('-', 46);
 
         Console.WriteLine(border);
         Console.WriteLine($"|{"Round",-8}: {round,-36}|");
@@ -109,25 +108,26 @@ public static class Dialogue
 
         // User info
         Console.WriteLine($"| Player: {user.Name,-12}  Pokemon: {user.Pokemon.Name,-14}|");
-        Console.WriteLine($"|   HP: {user.Pokemon.HP,4} / {user.Pokemon.MaxHP,-4}   Energy: {user.Pokemon.energyAttached,2}{"",15}|");
+        Console.WriteLine($"|   HP: {user.Pokemon.HP,4} / {user.Pokemon.MaxHP,-4}   Energy: {user.Pokemon.EnergyAttached,2}{"",15}|");
         Console.WriteLine(innerBorder);
 
         // Enemy info
         Console.WriteLine($"| Enemy:  {enemy.Name,-12}  Pokemon: {enemy.Pokemon.Name,-14}|");
-        Console.WriteLine($"|   HP: {enemy.Pokemon.HP,4} / {enemy.Pokemon.MaxHP,-4}   Energy: {enemy.Pokemon.energyAttached,2}{"",15}|");
+        Console.WriteLine($"|   HP: {enemy.Pokemon.HP,4} / {enemy.Pokemon.MaxHP,-4}   Energy: {enemy.Pokemon.EnergyAttached,2}{"",15}|");
         Console.WriteLine(border);
     }
 
-    public static void Battle_Dialogue(Character attacker, Character defender, string attackName, int damage, int round)
+    public static void BattleDialogue(Character attacker, Character defender, string attackName, int damage, int round)
     {
         if (attacker.AttackingFirst)
         {
-            display(attacker, defender, round);
+            Display(attacker, defender, round);
         }
         else
         {
-            display(defender, attacker, round);
+            Display(defender, attacker, round);
         }
+
         Console.WriteLine($"{attacker.Name}: {attacker.Pokemon.Name}, use {attackName}!");
         Thread.Sleep(1500);
 
@@ -138,7 +138,7 @@ public static class Dialogue
     public static void EndTurn(Character user)
     {
         Console.WriteLine($"{user.Name} has ended their turn.");
-        Thread.Sleep(1500);
+        Thread.Sleep(1500); // zZz
     }
 
     public static void CannotAttachEnergy()

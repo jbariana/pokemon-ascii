@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("turn-based-game")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6b2d63357e15cd3e873f8486c38535d49ff169e4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+56e0a7050592309420520fd4adb0cd2db66d940c")]
 [assembly: System.Reflection.AssemblyProductAttribute("turn-based-game")]
 [assembly: System.Reflection.AssemblyTitleAttribute("turn-based-game")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
