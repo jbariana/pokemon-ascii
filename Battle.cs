@@ -19,6 +19,7 @@ public class Battle
 
         while (!gameIsOver && enemyIsAlive)
         {
+            // rip this project
             round++;
 
             // GAME OVER STATES
