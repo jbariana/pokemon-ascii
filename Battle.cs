@@ -13,13 +13,16 @@ public class Battle
     }
     public void StartBattle()
     {
+        bool energyCanBeAttached = true;
         bool gameIsOver = false;
         bool enemyIsAlive = true;
         int round = 0;
 
         while (!gameIsOver && enemyIsAlive)
         {
+            energyCanBeAttached = true; // reset for each round
             round++;
+            Dialogue.display(user, enemy, round);
 
             // GAME OVER STATES
             if (gameIsOver)
@@ -34,23 +37,50 @@ public class Battle
             }
 
             // GAME CONTINUE STATES
-            else if (round % 2 == 1)
+            if (round % 2 == 1)
             {
-                // Display
-                Dialogue.display(user, enemy, round);
+                bool turnInProgress = true;
+                while (turnInProgress)
+                {
+                    string userChoice = Dialogue.BattleMenu(user, enemy, round);
 
-                // choose attack
-                string userChoice = Dialogue.DisplayAttackChoices(user);
+                    if (userChoice == "attach energy")
+                    {
+                        if (energyCanBeAttached)
+                        {
+                            energyCanBeAttached = false;
+                            user.Pokemon.energyAttach();
+                            Dialogue.AttachEnergy(user);
+                            Dialogue.display(user, enemy, round);
+                            continue;
+                        }
+                        else
+                        {
 
-                // start battle sequence
-                Battle_Sequence(user, enemy, userChoice);
+                            Dialogue.CannotAttachEnergy();
+                            Dialogue.display(user, enemy, round);
+                            continue;
+                        }
+                    }
 
-                if (enemy.HP <= 0)
+                    if (userChoice == "end turn")
+                    {
+                        Dialogue.EndTurn(user);
+                        turnInProgress = false;
+                        continue;
+                    }
+
+                    // If the user chose an attack, do the battle sequence and end their turn
+                    Battle_Sequence(user, enemy, userChoice, round);
+                    Dialogue.display(user, enemy, round);
+                    turnInProgress = false;
+                }
+
+                if (enemy.Pokemon.HP <= 0)
                 {
                     enemyIsAlive = false; // enemy defeated
                 }
-
-                else if (user.HP <= 0)
+                else if (user.Pokemon.HP <= 0)
                 {
                     gameIsOver = true; // user defeated
                 }
@@ -61,14 +91,14 @@ public class Battle
                 Dialogue.display(user, enemy, round);
 
                 // start battle and choose attack for ai
-                Battle_Sequence(enemy, user, EnemyAttackChooser());
+                Battle_Sequence(enemy, user, EnemyAttackChooser(), round);
 
-                if (enemy.HP <= 0)
+                if (enemy.Pokemon.HP <= 0)
                 {
                     enemyIsAlive = false; // enemy defeated
                 }
 
-                else if (user.HP <= 0)
+                else if (user.Pokemon.HP <= 0)
                 {
                     gameIsOver = true; // user defeated
                 }
@@ -80,8 +110,16 @@ public class Battle
     //make better
     private string EnemyAttackChooser()
     {
-        var random = new Random();
-        return enemy.Attacks[random.Next(enemy.Attacks.Count)];
+        var attacks = enemy.Pokemon.Attacks;
+        int count = attacks.Count;
+        int chosenIndex = 0;
+
+        if (count > 2)
+        {
+            chosenIndex = (new Random().Next(2)) * 2; // 0 or 2
+        }
+
+        return attacks[chosenIndex];
     }
 
     //fix later
@@ -96,45 +134,34 @@ public class Battle
         return;
     }
 
-    public void Battle_Sequence(Character attacker, Character defender, string attackChoice)
+    public void Battle_Sequence(Character attacker, Character defender, string attackChoice, int round)
     {
-        int damage = CalculateDamage(attacker.Pokemon.Trim(), attackChoice.Trim());
+        int damage = CalculateDamage(attacker.Pokemon, attackChoice.Trim());
 
-        defender.HP -= damage;
+        Dialogue.Battle_Dialogue(attacker, defender, attackChoice, damage, round);
 
-        Dialogue.Battle_Dialogue(attacker, defender, attackChoice, damage);
+        defender.Pokemon.HP -= damage;
 
-        if (defender.HP < 0)
+        if (defender.Pokemon.HP < 0)
         {
-            defender.HP = 0;
+            defender.Pokemon.HP = 0;
         }
     }
 
-    public int CalculateDamage(string weapon, string attackChoice)
+    public int CalculateDamage(Pokemon pokemon, string attackChoice)
     {
-        var lines = File.ReadAllLines("weapons.csv");
-
-        foreach (var line in lines.Skip(1)) // Skip header
+        var attacks = pokemon.Attacks;
+        for (int i = 0; i < attacks.Count; i += 3)
         {
-            var parts = line.Split(',');
-
-            // Check if weapon name matches
-            if (parts[0].Trim().Equals(weapon, StringComparison.OrdinalIgnoreCase))
+            string attackName = attacks[i].Trim();
+            if (!string.IsNullOrEmpty(attackName) &&
+                attackName.Equals(attackChoice, StringComparison.OrdinalIgnoreCase))
             {
-                // Search for attack name in odd columns (Attack1, Attack2, ...)
-                for (int i = 4; i < parts.Length; i += 3)
-                {
-                    string attackName = parts[i].Trim();
-                    if (!string.IsNullOrEmpty(attackName) &&
-                        attackName.Equals(attackChoice, StringComparison.OrdinalIgnoreCase))
-                    {
-                        // Damage is the next column
-                        if (i + 1 < parts.Length && int.TryParse(parts[i + 1].Trim(), out int dmg))
-                            return dmg;
-                    }
-                }
+                // Damage is the next item in the list
+                if (i + 1 < attacks.Count && int.TryParse(attacks[i + 1].Trim(), out int dmg))
+                    return dmg;
             }
         }
-        return 0; // Not found
+        return 0;
     }
 }
