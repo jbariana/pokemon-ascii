@@ -48,8 +48,6 @@ public static class Dialogue
             case 3:
                 return "inventory not currently implemented";
             case 4:
-                Console.WriteLine($"{user.Name} has ended their turn.");
-                Thread.Sleep(1500);
                 return "end turn";
             default:
                 Console.WriteLine("Invalid choice. Please try again.");
@@ -137,7 +135,7 @@ public static class Dialogue
 
     public static void EndTurn(Character user)
     {
-        Console.WriteLine($"{user.Name} has ended their turn.");
+        Console.WriteLine($"{user.Name} has ended their turn...");
         Thread.Sleep(1500); // zZz
     }
 
@@ -145,5 +143,11 @@ public static class Dialogue
     {
         Console.WriteLine("You cannot attach any more energy this turn!");
         Thread.Sleep(1500);
+    }
+
+    internal static void NotEnoughEnergy(Character attacker, int cost)
+    {
+        Console.WriteLine($"{attacker.Name}'s {attacker.Pokemon.Name} does not have enough energy to perform this attack! (Cost: {cost})");
+        Thread.Sleep(1000);
     }
 }

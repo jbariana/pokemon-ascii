@@ -16,31 +16,12 @@ public class Game
 {
     public void GameLoop()
     {
-        Character user = CreatePlayerCharacter();
-        Character enemy = CreateEnemyCharacter();
+        Character user = new Character("Combo", "Giratina", true);
+        Character enemy = new Character("DJ EVIL", "Darkrai", false);
 
         Dialogue.IntroScreen();
 
         var battle = new Battle(user, enemy);
-        battle.StartBattle(); // this is actually the game loop we lowkey should rename this method
-    }
-
-    private Character CreatePlayerCharacter()
-    {
-        // TODO: ill let you deal with how you wanna get player names
-        string playerName = "Combo";
-        string pokemonName = "Giratina";
-        bool attacksFirst = true;
-
-        return new Character(playerName, pokemonName, attacksFirst);
-    }
-
-    private Character CreateEnemyCharacter()
-    {
-        string enemyName = "DJ EVIL";
-        string pokemonName = "Darkrai";
-        bool attacksFirst = false;
-
-        return new Character(enemyName, pokemonName, attacksFirst);
+        battle.StartBattle();
     }
 }

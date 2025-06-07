@@ -4,6 +4,7 @@
  */
 
 namespace turn_based_game.Models;
+
 public class Attack
 {
     public string Name { get; }

@@ -79,9 +79,9 @@ public class Battle
 
             if (userChoice == "end turn")
             {
-                Dialogue.EndTurn(_user);
                 turnComplete = true;
-                continue;
+                Dialogue.EndTurn(_user);
+                return;
             }
 
             // updated this to actually look for an Attack object by name with some linq magic
@@ -137,10 +137,18 @@ public class Battle
 
     private void BattleSequence(Character attacker, Character defender, Attack attack, int round)
     {
-        Dialogue.BattleDialogue(attacker, defender, attack.Name, attack.Damage, round);
+
 
         // doing this in Pokemon.cs so we can have HP as a private set for data security purposes
+        if (attacker.Pokemon.EnergyAttached < attack.Cost)
+        {
+            Dialogue.NotEnoughEnergy(attacker, attack.Cost);
+            return;
+        }
+
+        Dialogue.BattleDialogue(attacker, defender, attack.Name, attack.Damage, round);
         defender.Pokemon.TakeDamage(attack.Damage);
+
     }
 
     // this could basically take the place of game over and enemy defeated for now atleast
