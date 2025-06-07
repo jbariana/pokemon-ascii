@@ -5,16 +5,30 @@
 
 namespace turn_based_game.Models;
 
+public enum StatusEffect
+{
+    None,
+    Poison,
+    Sleep,
+    Paralysis,
+    Confusion,
+    Burn
+}
+
 public class Attack
 {
     public string Name { get; }
     public int Damage { get; }
     public int Cost { get; }
+    public StatusEffect Effect { get; }
+    public bool Special { get; }
 
-    public Attack(string name, int damage, int cost)
+    public Attack(string name, int damage, int cost, StatusEffect effect = StatusEffect.None, bool special = false)
     {
         Name = name;
         Damage = damage;
         Cost = cost;
+        Effect = effect;
+        Special = special;
     }
 }

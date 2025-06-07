@@ -147,6 +147,7 @@ public static class Dialogue
 
     internal static void NotEnoughEnergy(Character attacker, int cost)
     {
+        Console.Clear();
         Console.WriteLine($"{attacker.Name}'s {attacker.Pokemon.Name} does not have enough energy to perform this attack! (Cost: {cost})");
         Thread.Sleep(1000);
     }
