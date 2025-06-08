@@ -12,8 +12,25 @@ public static class Dialogue
     public static void IntroScreen()
     {
         Console.Clear();
-        Console.WriteLine("Welcome to the pokemon-ascii!");
-        Console.WriteLine("Prepare for battle!");
+        Console.WriteLine("                                  ,'\\"); // Changed here
+        Console.WriteLine("    _.----.        ____         ,'  _\\   ___    ___     ____");
+        Console.WriteLine("_,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.");
+        Console.WriteLine("\\      __    \\    '-.  | /   `.  ___    |    \\/    |   '-.   \\ |  |");
+        Console.WriteLine(" \\.    \\ \\   |  __  |  |/    ,','_  `.  |          | __  |    \\|  |");
+        Console.WriteLine("   \\    \\/   /,' _`.|      ,' / / / /   |          ,' _`.|     |  |");
+        Console.WriteLine("    \\     ,-'/  /   \\    ,'   | \\/ / ,`.|         /  /   \\  |     |");
+        Console.WriteLine("     \\    \\ |   \\_/  |   `-.  \\    `'  /|  |    ||   \\_/  | |\\    |");
+        Console.WriteLine("      \\    \\ \\      /       `-.`.___,-' |  |\\  /| \\      /  | |   |");
+        Console.WriteLine("       \\    \\ `.__,'|  |`-._    `|      |__| \\/ |  `.__,'|  | |   |");
+        Console.WriteLine("        \\_.-'       |__|    `-._ |              '-.|     '-.| |   |");
+        Console.WriteLine("                                `'                            '-._|");
+        Console.WriteLine();
+        Console.WriteLine("                                          .__.__ ");
+        Console.WriteLine("                     _____    ______ ____ |__|__|");
+        Console.WriteLine("                     \\__  \\  /  ___// ___\\|  |  |");
+        Console.WriteLine("                      / __ \\_\\___ \\\\  \\___|  |  |");
+        Console.WriteLine("                     (____  /____  >\\___  >__|__|");
+        Console.WriteLine("                          \\/     \\/     \\/ ");
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
         Console.Clear();
@@ -147,7 +164,6 @@ public static class Dialogue
 
     internal static void NotEnoughEnergy(Character attacker, int cost)
     {
-        Console.Clear();
         Console.WriteLine($"{attacker.Name}'s {attacker.Pokemon.Name} does not have enough energy to perform this attack! (Cost: {cost})");
         Thread.Sleep(1000);
     }

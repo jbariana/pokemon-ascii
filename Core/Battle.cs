@@ -1,4 +1,5 @@
-﻿using turn_based_game.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using turn_based_game.Models;
 using turn_based_game.UI;
 
 namespace turn_based_game.Core;
@@ -33,6 +34,7 @@ public class Battle
             }
             else
             {
+                Dialogue.Display(_user, _enemy, round);
                 EnemyTurn(round);
             }
 
@@ -90,6 +92,12 @@ public class Battle
 
             if (selectedAttack != null)
             {
+                if (_user.Pokemon.EnergyAttached < selectedAttack.Cost)
+                {
+                    Dialogue.Display(_user, _enemy, round);
+                    Dialogue.NotEnoughEnergy(_user, selectedAttack.Cost);
+                    continue;
+                }
                 BattleSequence(_user, _enemy, selectedAttack, round);
             }
             else
@@ -108,14 +116,32 @@ public class Battle
     {
         Dialogue.Display(_user, _enemy, round);
 
-        // felt like it was nice to rename and separate enemy attack logic into its own method
-        Attack chosenAttack = EnemyAttackChooser();
-        BattleSequence(_enemy, _user, chosenAttack, round);
+        Attack? chosenAttack = EnemyAttackChooser();
+        if (chosenAttack != null)
+        {
+            Console.WriteLine(chosenAttack.Name); // Only print if not null
+            BattleSequence(_enemy, _user, chosenAttack, round);
+        }
+        else
+        {
+            // if the enemy couldn't attack, it just attaches energy, checks if it can attack w/ the new energy, ends its turn
+            _enemy.Pokemon.AttachEnergy();
+            Dialogue.AttachEnergy(_enemy);
+
+            // Try again after attaching energy
+            chosenAttack = EnemyAttackChooser();
+            if (chosenAttack != null)
+            {
+                BattleSequence(_enemy, _user, chosenAttack, round);
+            }
+            else
+            {
+                Dialogue.EndTurn(_enemy);
+            }
+        }
     }
 
-    // since I added the attacks class, I had to rework this method a lil to now return an attack rather than a string
-    // less risk for invalid inputs
-    private Attack EnemyAttackChooser()
+    private Attack? EnemyAttackChooser()
     {
         var attacks = _enemy.Pokemon.Attacks;
 
@@ -124,28 +150,27 @@ public class Battle
             throw new Exception($"{_enemy.Name}'s pokemon has no attacks loaded.");
         }
 
-        int chosenIndex = 0;
+        // finds all useable attacks based on energy cost
+        var usableAttacks = attacks
+            .Where(a => a.Cost <= _enemy.Pokemon.EnergyAttached)
+            .ToList();
 
-        if (attacks.Count > 1)
+        // finds a random attack that can be used
+        if (usableAttacks.Count > 0)
         {
+            // Pick a random usable attack
             var rng = new Random();
-            chosenIndex = rng.Next(attacks.Count);
+            return usableAttacks[rng.Next(usableAttacks.Count)];
         }
-
-        return attacks[chosenIndex];
+        //If no attacks can be used, this will return null
+        else
+        {
+            return null;
+        }
     }
 
     private void BattleSequence(Character attacker, Character defender, Attack attack, int round)
     {
-
-
-        // doing this in Pokemon.cs so we can have HP as a private set for data security purposes
-        if (attacker.Pokemon.EnergyAttached < attack.Cost)
-        {
-            Dialogue.NotEnoughEnergy(attacker, attack.Cost);
-            return;
-        }
-
         Dialogue.BattleDialogue(attacker, defender, attack.Name, attack.Damage, round);
         defender.Pokemon.TakeDamage(attack.Damage);
 
