@@ -5,6 +5,8 @@
 namespace turn_based_game.UI;
 
 using System;
+using System.IO;
+using System.Linq;
 using turn_based_game.Models;
 
 public static class Dialogue
@@ -166,5 +168,76 @@ public static class Dialogue
     {
         Console.WriteLine($"{attacker.Name}'s {attacker.Pokemon.Name} does not have enough energy to perform this attack! (Cost: {cost})");
         Thread.Sleep(1000);
+    }
+
+    private static List<string> LoadAllPokemonNames()
+    {
+        var path = Path.Combine(AppContext.BaseDirectory, "pokemon-data.csv");
+        var lines = File.ReadAllLines(path).Skip(1);
+        var names = new List<string>();
+        foreach (var line in lines)
+        {
+            var columns = line.Split(',');
+            if (columns.Length > 0 && !string.IsNullOrWhiteSpace(columns[0]))
+            {
+                names.Add(columns[0].Trim());
+            }
+        }
+        return names;
+    }
+
+    public static string ChoosePokemonScreen()
+    {
+        var pokemons = LoadAllPokemonNames();
+        const int pageSize = 20;
+        int page = 0;
+        int totalPages = (pokemons.Count + pageSize - 1) / pageSize;
+
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine("Choose your Pokémon:");
+            int start = page * pageSize;
+            int end = Math.Min(start + pageSize, pokemons.Count);
+
+            for (int i = start; i < end; i++)
+            {
+                Console.WriteLine($"{i + 1}. {pokemons[i]}");
+            }
+
+            if (totalPages > 1)
+            {
+                Console.WriteLine();
+                if (page > 0) Console.WriteLine("P. Previous Page");
+                if (page < totalPages - 1) Console.WriteLine("N. Next Page");
+            }
+            Console.WriteLine("Enter the number of your choice:");
+
+            string input = Console.ReadLine();
+            input = input == null ? "" : input.Trim().ToLower();
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                Console.WriteLine("Input cannot be empty. Press any key to try again...");
+                Console.ReadKey();
+                continue;
+            }
+            if (input == "p" && page > 0)
+            {
+                page--;
+                continue;
+            }
+            if (input == "n" && page < totalPages - 1)
+            {
+                page++;
+                continue;
+            }
+            if (int.TryParse(input, out int choice) && choice >= 1 && choice <= pokemons.Count)
+            {
+                return pokemons[choice - 1];
+            }
+
+            Console.WriteLine("Invalid input. Press any key to try again...");
+            Console.ReadKey();
+        }
     }
 }

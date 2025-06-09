@@ -16,10 +16,12 @@ public class Game
 {
     public void GameLoop()
     {
-        Character user = new Character("Combo", "Giratina", true);
-        Character enemy = new Character("DJ EVIL", "Darkrai", false);
-
         Dialogue.IntroScreen();
+
+        string? chosenPokemon = Dialogue.ChoosePokemonScreen();
+        Character user = new Character("Combo", chosenPokemon, true);
+
+        Character enemy = new Character("DJ EVIL", "Darkrai", false);
 
         var battle = new Battle(user, enemy);
         battle.StartBattle();
