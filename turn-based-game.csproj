@@ -9,11 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="weapons.csv" />
+    <None Remove="pokemon-data.csv" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="weapons.csv">
+    <Content Include="pokemon-data.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

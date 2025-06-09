@@ -23,9 +23,10 @@ public class Pokemon
         bool found = false;
         MaxHP = 0;
 
+
         // !!!!! IMPORTANT NOTE FOR FUTURE PROGRAMS !!!!!
         // HACK: use relative path project roots, otherwise any file access will be broken when someone clones your repo
-        var path = Path.Combine(AppContext.BaseDirectory, "weapons.csv");
+        var path = Path.Combine(AppContext.BaseDirectory, "pokemon-data.csv");
         var lines = File.ReadAllLines(path).Skip(1);
 
         // tried to clean up this foreach a lil, lmk what you think
@@ -84,7 +85,7 @@ public class Pokemon
         // if nothing matched the name, throw an error instead of failing silently. we can make a better fix later
         if (!found)
         {
-            throw new Exception($"pokemon '{name}' not found in weapons.csv");
+            throw new Exception($"pokemon '{name}' not found in pokemon-data.csv");
         }
 
         // set hp equal to max hp by default

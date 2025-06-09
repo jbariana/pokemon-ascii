@@ -28,4 +28,4 @@ C:\Users\cfowl\pokemon-ascii\obj\Debug\net9.0\refint\turn-based-game.dll
 C:\Users\cfowl\pokemon-ascii\obj\Debug\net9.0\turn-based-game.pdb
 C:\Users\cfowl\pokemon-ascii\obj\Debug\net9.0\turn-based-game.genruntimeconfig.cache
 C:\Users\cfowl\pokemon-ascii\obj\Debug\net9.0\ref\turn-based-game.dll
-C:\Users\jbari\source\repos\turn-based-game\turn-based-game\bin\Debug\net9.0\weapons.csv
+C:\Users\jbari\source\repos\turn-based-game\turn-based-game\bin\Debug\net9.0\pokemon-data.csv

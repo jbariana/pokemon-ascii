@@ -41,7 +41,7 @@ public static class Dialogue
         Display(user, enemy, round);
         Console.WriteLine("1. Attack");
         Console.WriteLine("2. Attach Energy");
-        Console.WriteLine("3. Inventory (WIP)");
+        Console.WriteLine("3. Deck/ (WIP)");
         Console.WriteLine("4. End Turn");
 
         Console.Write("Enter your choice (1-4): ");
